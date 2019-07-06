@@ -1,0 +1,95 @@
+<div class=" mt-4" style="margin-left:2%">
+  <div class="row">
+    <div style="width:30%;">
+      <ul class="list-group">
+        <li class="list-group-item">
+          <button class="btn btn-outline-primary btn-sm" (click)="onAddNewEmployee()">
+            Add
+          </button>
+        </li>
+        <li *ngFor="let employee of employee_list; let i=index" class="list-group-item cur-pointer" (click)="showSalarySlip(i)">
+          <span class="text-bold text-center">{{employee.name | uppercase}}</span>
+          <span class="pull-right" (click)="deleteEmployee(i)"><button class="btn btn-outline-danger btn-sm">X</button></span>
+          <br>
+        </li>
+      </ul>
+    </div>
+    <div style="width:65%; margin-left: 3%">
+      <div>
+        <div class="col-sm-6" *ngIf="show_salary_flag">
+          <p class="text-muted">
+            <span>Name : </span>
+            <span>{{salary_slip['name']}}</span>
+          </p>
+          <p class="text-muted">
+            <span>Location : </span>
+            <span>{{salary_slip['location']}}</span> <br>
+            <span>Branch : </span>
+            <span>{{salary_slip['branch']}}</span>
+          </p>
+          <p class="text-muted">
+              <span>Basic Salary : </span>
+              <span>{{salary_slip['basic_salary'] | currency:'INR'}}</span> <br>
+              <span>HRA : </span>
+              <span>{{salary_slip['hra'] | currency:'INR'}}</span> <br>
+
+              <span *ngIf="salary_slip['pf']>0">PF : </span>
+              <span *ngIf="salary_slip['pf']>0">{{salary_slip['pf'] | currency:'INR'}}<br></span>
+              <span *ngIf="salary_slip['special_allowance']">Special Allowance : </span>
+              <span *ngIf="salary_slip['special_allowance']">{{salary_slip['special_allowance'] | currency:'INR'}} <br></span>
+
+              <span>CTC : </span>
+              <span>{{this.salary_slip['ctc'] | currency:'INR'}}</span>
+            </p>
+
+          <p class="">
+            <button (click)="onEmployeeEdit(update_employee_index)" class="btn btn-outline-primary btn-sm">
+              Edit
+            </button>
+          </p>
+        </div>
+
+      </div>
+
+
+
+      <div *ngIf="update_form_flag || new_employee_flag">
+        <div class="form-group">
+          <label for="Name" class="">Name : </label>
+          <div class="">
+            <input type="text" name="name" [(ngModel)]="name" class="form-control col-sm-12"
+              placeholder="Enter Name Here...">
+            <!-- <small *ngIf="validation_flags['name']" class="err-text">{{validation_errors['name']}}</small> -->
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="Name" class="">Location : </label>
+          <div class="">
+            <input type="text" name="location" [(ngModel)]="location" class="form-control col-sm-12"
+              placeholder="Enter Location Here...">
+            <!-- <small *ngIf="validation_flags['name']" class="err-text">{{validation_errors['name']}}</small> -->
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="Name" class="">Branch : </label>
+          <div class="">
+            <input type="text" name="branch" [(ngModel)]="branch" class="form-control col-sm-12"
+              placeholder="Enter Branch Here...">
+            <!-- <small *ngIf="validation_flags['name']" class="err-text">{{validation_errors['name']}}</small> -->
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="Name" class="">Basic Salary : </label>
+          <div class="">
+            <input type="number" name="basic_salary" [(ngModel)]="basic_salary" class="form-control col-sm-12"
+              placeholder="Enter Basic Salary Here...">
+            <!-- <small *ngIf="validation_flags['name']" class="err-text">{{validation_errors['name']}}</small> -->
+          </div>
+        </div>
+        <div class="form-group text-center">
+          <button class="btn btn-outline-primary" type="submit" (click)="onSubmit()">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
